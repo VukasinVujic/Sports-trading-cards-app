@@ -8,7 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
 import { AppComponent } from './app.component';
-import { SingleCardModule } from './single-card/single-card.module';
+// import { SingleCardModule } from './single-card/single-card.module';
+import { CardContainerModule } from './card-container/card-container.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,7 @@ import { SingleCardModule } from './single-card/single-card.module';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    SingleCardModule,
+    CardContainerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
