@@ -8,8 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
 import { AppComponent } from './app.component';
-// import { SingleCardModule } from './single-card/single-card.module';
 import { CardContainerModule } from './card-container/card-container.module';
+import { NewCardFormModule } from './new-card-form/new-card-form.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +20,7 @@ import { CardContainerModule } from './card-container/card-container.module';
     MatButtonModule,
     MatCardModule,
     CardContainerModule,
+    NewCardFormModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
