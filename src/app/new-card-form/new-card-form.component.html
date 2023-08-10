@@ -1,16 +1,26 @@
-<form class="example-form">
+<form (ngSubmit)="onSubmit(myForm)" class="example-form" #myForm="ngForm">
   <table class="example-full-width" cellspacing="0">
     <tr>
       <td>
         <mat-form-field class="example-full-width">
           <mat-label>Players First name</mat-label>
-          <input matInput />
+          <input
+            [(ngModel)]="firstName"
+            matInput
+            name="firstNamePlayer"
+            required
+          />
         </mat-form-field>
       </td>
       <td>
         <mat-form-field class="example-full-width">
           <mat-label>Players Last Name </mat-label>
-          <input matInput />
+          <input
+            [(ngModel)]="lastName"
+            matInput
+            name="lastNamePlayer"
+            required
+          />
         </mat-form-field>
       </td>
     </tr>
@@ -18,17 +28,43 @@
       <td>
         <mat-form-field class="example-full-width">
           <mat-label>Players Number</mat-label>
-          <input matInput />
+          <input
+            [(ngModel)]="playersNumber"
+            matInput
+            name="playersNumberInTeam"
+            required
+            type="number"
+          />
         </mat-form-field>
       </td>
       <td>
         <mat-form-field class="example-full-width">
           <mat-label> Players Team </mat-label>
-          <input matInput />
+          <input
+            [(ngModel)]="playersTeam"
+            matInput
+            name="playersTeamName"
+            required
+          />
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+          <mat-label>Estimated Value</mat-label>
+          <input
+            [(ngModel)]="estimatedValue"
+            matInput
+            name="estimatedValueNumber"
+            type="number"
+          />
         </mat-form-field>
       </td>
     </tr>
   </table>
-  <button mat-raised-button (click)="closeDialog()">Cancel</button>
-  <button mat-raised-button color="primary">Save</button>
+  <button type="button" mat-raised-button (click)="closeDialog()">
+    Cancel
+  </button>
+  <button type="submit" mat-raised-button color="primary">Save</button>
 </form>

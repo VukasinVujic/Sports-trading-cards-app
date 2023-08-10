@@ -1,2 +1,5 @@
+<p>Total sum: {{ getASum(data$ | async, "estimatedValue") }}</p>
 <app-new-card-dialog></app-new-card-dialog>
-<app-single-card></app-single-card>
+<div *ngFor="let item of data$ | async">
+  <app-single-card [inputData]="item"></app-single-card>
+</div>

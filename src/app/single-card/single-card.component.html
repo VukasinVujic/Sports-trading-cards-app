@@ -1,7 +1,10 @@
 <mat-card class="single-card-container">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>First and last name</mat-card-title>
+    <mat-card-title> First and last name: </mat-card-title>
+    <mat-card-title>
+      {{ inputData.firstName }} {{ inputData.lastName }}
+    </mat-card-title>
   </mat-card-header>
   <img
     mat-card-image
@@ -9,10 +12,13 @@
     alt="Photo of a Shiba Inu"
   />
   <mat-card-content class="single-card-content">
-    <p>Estimated value: 100$</p>
+    <p>
+      Estimated value:
+      {{ inputData.estimatedValue ? inputData.estimatedValue : 0 }}
+    </p>
 
-    <p>Team name</p>
-    <p>Team number</p>
+    <p>Team name: {{ inputData.playersTeam }}</p>
+    <p>Team number: {{ inputData.playersNumber }}</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" style="margin-right: 10px">
