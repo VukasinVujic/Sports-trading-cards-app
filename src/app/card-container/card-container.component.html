@@ -2,12 +2,15 @@
   <p>Total estimated sum: {{ calculateSum(data) }}</p>
 </div>
 
-<app-new-card-dialog></app-new-card-dialog>
+<app-new-card-dialog
+  (scrollLastCardIntoView)="scrollLastCardIntoView()"
+></app-new-card-dialog>
 
 <ng-container *ngIf="(data$ | async | json).length > 3">
-  <div *ngFor="let item of data$ | async as data">
+  <div *ngFor="let item of data$ | async as data; let last = last" #lastCard>
     <app-single-card [inputData]="item"></app-single-card>
   </div>
+  <div #lastCard></div>
 </ng-container>
 
 <ng-container *ngIf="(data$ | async | json).length < 3">

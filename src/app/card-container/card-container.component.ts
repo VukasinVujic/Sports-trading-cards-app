@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { SingleCardComponent } from '../single-card/single-card.component';
 import { NewCardDialogComponent } from '../new-card-dialog/new-card-dialog.component';
@@ -23,17 +23,30 @@ import { Router } from '@angular/router';
 })
 export class CardContainerComponent {
   data$: Observable<SportCard[]> = this.store.select(selectAllItems);
+  @ViewChildren('lastCard') lastCardRefs!: QueryList<ElementRef>;
 
   constructor(private store: Store, private router: Router) {}
 
   calculateSum(data: SportCard[]): number {
+    if (!data.length) {
+      return 0;
+    }
+
     return data.reduce(
       (sum: number, cur: SportCard): number => sum + cur.estimatedValue,
       0
     );
   }
 
-  navigateToAbout() {
-    this.router.navigate(['/about']);
+  scrollLastCardIntoView(): void {
+    setTimeout(() => {
+      const lastCardRef = this.lastCardRefs.last;
+      if (lastCardRef && lastCardRef.nativeElement) {
+        lastCardRef.nativeElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
+      }
+    });
   }
 }

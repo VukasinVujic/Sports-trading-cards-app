@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { NewCardFormComponent } from '../new-card-form/new-card-form.component';
@@ -14,11 +14,15 @@ import { NewCardFormComponent } from '../new-card-form/new-card-form.component';
   imports: [MatButtonModule, MatDialogModule, NewCardFormComponent],
 })
 export class NewCardDialogComponent {
+  @Output() scrollLastCardIntoView: EventEmitter<void> =
+    new EventEmitter<void>();
+
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
     const dialogRef = this.dialog.open(NewCardFormComponent);
     dialogRef.afterClosed().subscribe((result) => {
+      this.scrollLastCardIntoView.emit();
       console.log(`Dialog result: ${result}`);
     });
   }
