@@ -1,5 +1,15 @@
-<p>Total sum: {{ getASum(data$ | async, "estimatedValue") }}</p>
-<app-new-card-dialog></app-new-card-dialog>
-<div *ngFor="let item of data$ | async">
-  <app-single-card [inputData]="item"></app-single-card>
+<div *ngIf="data$ | async as data">
+  <p>Total estimated sum: {{ calculateSum(data) }}</p>
 </div>
+
+<app-new-card-dialog></app-new-card-dialog>
+
+<ng-container *ngIf="(data$ | async | json).length > 3">
+  <div *ngFor="let item of data$ | async as data">
+    <app-single-card [inputData]="item"></app-single-card>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="(data$ | async | json).length < 3">
+  <div>NO cards to display</div>
+</ng-container>

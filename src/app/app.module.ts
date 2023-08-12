@@ -15,9 +15,10 @@ import { StoreModule } from '@ngrx/store';
 import { dataReducer } from './counter.reducer';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AboutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

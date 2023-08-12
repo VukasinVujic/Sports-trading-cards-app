@@ -4,7 +4,10 @@ import { SingleCardComponent } from '../single-card/single-card.component';
 import { NewCardDialogComponent } from '../new-card-dialog/new-card-dialog.component';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { selectAllItems } from '../selector';
 import { CommonModule } from '@angular/common';
+import { SportCard } from '../types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-container',
@@ -19,13 +22,18 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class CardContainerComponent {
-  data$: Observable<any>;
+  data$: Observable<SportCard[]> = this.store.select(selectAllItems);
 
-  constructor(private store: Store<{ data: any }>) {
-    this.data$ = store.select('data');
+  constructor(private store: Store, private router: Router) {}
+
+  calculateSum(data: SportCard[]): number {
+    return data.reduce(
+      (sum: number, cur: SportCard): number => sum + cur.estimatedValue,
+      0
+    );
   }
 
-  getASum(data: any[], property: string): number {
-    return data.reduce((sum, item) => sum + item[property], 0);
+  navigateToAbout() {
+    this.router.navigate(['/about']);
   }
 }

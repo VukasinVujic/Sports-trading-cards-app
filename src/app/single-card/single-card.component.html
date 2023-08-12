@@ -21,10 +21,20 @@
     <p>Team number: {{ inputData.playersNumber }}</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" style="margin-right: 10px">
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-right: 10px"
+      (click)="updatedSportCard(inputData.id)"
+    >
       Update Card
     </button>
-    <button mat-raised-button color="warn" style="margin-right: 10px">
+    <button
+      mat-raised-button
+      color="warn"
+      style="margin-right: 10px"
+      (click)="deleteSportCard(inputData.id)"
+    >
       Delete Card
     </button>
   </mat-card-actions>

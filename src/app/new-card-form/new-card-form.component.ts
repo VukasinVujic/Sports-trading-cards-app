@@ -1,18 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-  FormsModule,
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NewCardDialogComponent } from '../new-card-dialog/new-card-dialog.component';
 import { SportCard } from '../types';
 import { Store } from '@ngrx/store';
-import { sendDataToStore } from '../counter.actions';
+import { createSportCard, updatedSportCard } from '../counter.actions';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-card-form',
@@ -22,21 +18,11 @@ import { sendDataToStore } from '../counter.actions';
   imports: [MatButtonModule, MatFormFieldModule, MatInputModule, FormsModule],
 })
 export class NewCardFormComponent {
-  // myForm: FormGroup;
-
   constructor(
     public dialogRef: MatDialogRef<NewCardDialogComponent>,
     private store: Store,
-    private fb: FormBuilder
-  ) {
-    // this.myForm = this.fb.group({
-    //   firstName: ['', Validators.required],
-    //   lastName: ['', Validators.required],
-    //   playersNumber: ['', Validators.required],
-    //   playersTeam: ['', Validators.required],
-    //   estimatedValue: ['', Validators.required],
-    // });
-  }
+    @Inject(MAT_DIALOG_DATA) public updateCardId: any
+  ) {}
 
   firstName: string = '';
   lastName: string = '';
@@ -53,9 +39,20 @@ export class NewCardFormComponent {
     this.newCard.playersTeam = this.playersTeam;
     this.newCard.estimatedValue = this.estimatedValue;
 
+    let currentDate = new Date();
+
+    this.newCard.id = '' + currentDate.getTime();
+
     const dataToSend = this.newCard;
-    if (myForm.valid) {
-      this.store.dispatch(sendDataToStore({ data: dataToSend }));
+
+    if (myForm.valid && this.updateCardId) {
+      this.store.dispatch(
+        updatedSportCard({ id: this.updateCardId.id, changes: dataToSend })
+      );
+      this.dialogRef.close();
+    }
+    if (myForm.valid && !this.updateCardId) {
+      this.store.dispatch(createSportCard({ data: dataToSend }));
       this.dialogRef.close();
     }
   }
